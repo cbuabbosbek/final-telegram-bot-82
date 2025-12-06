@@ -16,7 +16,7 @@ bot.on("message", function (msg) {
     return onStart(msg);
   }
 
-  bot.sendMessage(chatId, `${text}`);
+  return bot.sendMessage(chatId, `Kutilmagan xatolik... /start bosing!`);
 });
 
 console.log(`Bot ishga tushdi...`);
