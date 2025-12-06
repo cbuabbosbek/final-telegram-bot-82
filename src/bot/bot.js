@@ -1,6 +1,7 @@
 import TelegramBot from "node-telegram-bot-api";
 import { config } from "dotenv";
 import onStart from "./handlers/onStart.js";
+import onProfile from "./handlers/onProfile.js";
 config();
 
 const TOKEN = process.env.BOT_TOKEN;
@@ -14,6 +15,10 @@ bot.on("message", function (msg) {
 
   if (text == "/start") {
     return onStart(msg);
+  }
+
+  if (text == "/profile") {
+    return onProfile(msg);
   }
 
   return bot.sendMessage(chatId, `Kutilmagan xatolik... /start bosing!`);

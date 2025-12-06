@@ -1,12 +1,25 @@
 import { bot } from "../bot.js";
+import User from "../../models/User.js";
 
-function onStart(msg) {
+async function onStart(msg) {
   const chatId = msg.chat.id;
   const firstname = msg.chat.first_name;
 
-  bot.sendMessage(chatId, `Assalomu aleykum, ${firstname}`);
+  const existingUser = await User.findOne({ chatId: chatId });
 
-  console.log(`on start...`);
+  if (existingUser == null) {
+    const newUser = new User({
+      chatId: chatId,
+      firstname: firstname,
+      username: msg.chat.username,
+    });
+
+    newUser.save();
+  }
+
+  console.log(existingUser);
+
+  bot.sendMessage(chatId, `Assalomu aleykum, ${firstname}`);
 }
 
 export default onStart;
